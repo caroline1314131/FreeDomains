@@ -16,16 +16,12 @@ export function IncidentAnnouncement() {
 
         // Initial update
         updateHeight();
-        
-        // Force update after a tick to ensure all content is rendered
-        const timeoutId = setTimeout(updateHeight, 0);
 
         // Update on resize
         window.addEventListener('resize', updateHeight);
 
         // Cleanup
         return () => {
-            clearTimeout(timeoutId);
             window.removeEventListener('resize', updateHeight);
             document.documentElement.style.removeProperty('--incident-height');
         };
