@@ -45,7 +45,8 @@ export default function DomainDetail() {
             await subdomainAPI.renew(domain._id);
             toast({
                 title: "Domain Renewed Successfully! 🎉",
-                description: `${domain.name}.indevs.in has been extended for 1 year. New expiry date: ${new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB')}`,
+                description: `${domain.name}.${domain.domain || 'indevs.in'} has been extended for 1 year. New expiry date: ${new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB')}`,
+
                 className: "bg-[#e6f4ea] border-green-200 text-green-900"
             });
             await refresh();
@@ -132,9 +133,9 @@ export default function DomainDetail() {
                         </Link>
                     </Button>
                     <div className="min-w-0 flex-1">
-                        <h1 className="text-lg sm:text-2xl md:text-3xl font-bold text-[#1A1A1A] flex items-start gap-2 break-all" title={`${domain.name}.indevs.in`}>
+                        <h1 className="text-lg sm:text-2xl md:text-3xl font-bold text-[#1A1A1A] flex items-start gap-2 break-all" title={`${domain.name}.${domain.domain || 'indevs.in'}`}>
                             <Globe className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 flex-shrink-0 mt-0.5 sm:mt-1" />
-                            <span className="leading-tight">{domain.name}<wbr />.indevs.in</span>
+                            <span className="leading-tight">{domain.name}<wbr />.{domain.domain || 'indevs.in'}</span>
                         </h1>
                         <p className="text-[#4A4A4A] text-xs sm:text-sm mt-1 truncate" title={`Domain ID: ${domain._id}`}>Domain ID: {domain._id}</p>
                     </div>
@@ -412,7 +413,7 @@ export default function DomainDetail() {
                     <AlertDialogHeader>
                         <AlertDialogTitle>Delete Domain?</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Your deletion request for <strong className="font-bold">{domain.name}.indevs.in</strong> will be submitted for review.
+                            Your deletion request for <strong className="font-bold">{domain.name}.{domain.domain || 'indevs.in'}</strong> will be submitted for review.
                             The domain will remain active until approved.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
