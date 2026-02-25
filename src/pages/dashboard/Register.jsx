@@ -34,9 +34,13 @@ export default function Register() {
         checkAuth();
     }, []);
 
-    // Calculate domain usage
-    const domainLimit = user?.domainLimit || 5;
-    const domainsRegistered = subdomains?.length || 0;
+    // Calculate domain usage based on selected root domain
+    const domainLimit = rootDomain === 'sryze.cc'
+        ? (user?.sryzeDomainsLimit || 1)
+        : (user?.domainLimit || 5);
+    const domainsRegistered = rootDomain === 'sryze.cc'
+        ? (user?.sryzeDomainsCount || 0)
+        : (user?.domainsCount || 0);
     const canRegisterMore = domainsRegistered < domainLimit;
     const usagePercentage = (domainsRegistered / domainLimit) * 100;
 
@@ -219,7 +223,7 @@ export default function Register() {
                     <div className="flex items-center gap-2">
                         <Info className={`w-5 h-5 ${!canRegisterMore ? 'text-red-600' : 'text-blue-600'}`} />
                         <span className={`font-bold text-sm ${!canRegisterMore ? 'text-red-900' : 'text-blue-900'}`}>
-                            Domain Usage: {domainsRegistered} / {domainLimit}
+                            {rootDomain} Usage: {domainsRegistered} / {domainLimit}
                         </span>
                     </div>
                     {!canRegisterMore && (
@@ -246,7 +250,7 @@ export default function Register() {
                     </p>
                 ) : (
                     <p className="text-xs text-blue-800">
-                        {domainLimit - domainsRegistered} {domainLimit - domainsRegistered === 1 ? 'domain' : 'domains'} remaining
+                        {domainLimit - domainsRegistered} {rootDomain} {domainLimit - domainsRegistered === 1 ? 'domain' : 'domains'} remaining
                     </p>
                 )}
             </div>
