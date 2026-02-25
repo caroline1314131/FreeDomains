@@ -143,6 +143,18 @@ export const subdomainAPI = {
         return apiRequest('/subdomains/activity');
     },
 
+    /**
+     * Set DNS verification code on a subdomain
+     * @param {string} id - Subdomain ID
+     * @param {string} code - Verification code from DNS platform
+     */
+    setDnsVerificationCode: async (id, code) => {
+        return apiRequest(`/subdomains/${id}/dns-verification`, {
+            method: 'POST',
+            body: JSON.stringify({ code }),
+        });
+    },
+
     // Nameservers
     updateNameservers: (id, nameservers, recordType) =>
         apiRequest(`/subdomains/${id}`, {

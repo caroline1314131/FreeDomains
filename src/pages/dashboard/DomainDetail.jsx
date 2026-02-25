@@ -6,7 +6,7 @@ import { subdomainAPI } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Globe, ArrowLeft, RefreshCw, Clock, Shield, Trash, Settings as SettingsIcon, AlertCircle, CheckCircle, Loader2, XCircle } from "lucide-react";
+import { Globe, ArrowLeft, RefreshCw, Clock, Shield, Trash, Settings as SettingsIcon, AlertCircle, CheckCircle, Loader2, XCircle, KeyRound } from "lucide-react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 
 export default function DomainDetail() {
@@ -23,6 +23,9 @@ export default function DomainDetail() {
     const [isDeleting, setIsDeleting] = useState(false);
     const [isRenewing, setIsRenewing] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [dnsVerifyCode, setDnsVerifyCode] = useState("");
+    const [isSettingCode, setIsSettingCode] = useState(false);
+    const [dnsVerifyOpen, setDnsVerifyOpen] = useState(false);
 
     useEffect(() => {
         const foundDomain = subdomains.find(d => d._id === id);
@@ -82,6 +85,38 @@ export default function DomainDetail() {
         } finally {
             setIsDeleting(false);
             setDeleteDialogOpen(false);
+        }
+    };
+
+    const handleSetDnsVerificationCode = async () => {
+        if (!dnsVerifyCode.trim() || dnsVerifyCode.trim().length < 10) {
+            toast({
+                title: "Invalid Code",
+                description: "Please enter a valid verification code from the DNS platform (dns.stackryze.com).",
+                variant: "destructive"
+            });
+            return;
+        }
+
+        setIsSettingCode(true);
+        try {
+            await subdomainAPI.setDnsVerificationCode(domain._id, dnsVerifyCode.trim());
+            toast({
+                title: "Verification Code Set! ✅",
+                description: "Now go back to dns.stackryze.com and click 'Verify Ownership' to complete the process.",
+                className: "bg-[#e6f4ea] border-green-200 text-green-900"
+            });
+            setDnsVerifyOpen(false);
+            setDnsVerifyCode("");
+            await refresh();
+        } catch (error) {
+            toast({
+                title: "Failed to Set Code",
+                description: error.message || "Unable to set verification code. Please try again.",
+                variant: "destructive"
+            });
+        } finally {
+            setIsSettingCode(false);
         }
     };
 
@@ -379,6 +414,94 @@ export default function DomainDetail() {
                     </div>
                 </div>
             </div>
+
+            {/* DNS Verification Section */}
+            <div className="bg-white border-2 border-[#E5E3DF] rounded-xl p-4 sm:p-6 md:p-8">
+                <div className="flex items-center gap-2 sm:gap-3 mb-6">
+                    <KeyRound className="w-5 h-5 sm:w-6 sm:h-6 text-[#F59E0B]" />
+                    <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-[#1A1A1A]">DNS Verification</h2>
+                </div>
+
+                <div className="bg-amber-50 border-2 border-amber-200 rounded-lg p-5 sm:p-6 space-y-4">
+                    <p className="text-sm text-[#4A4A4A]">
+                        If you want to manage this domain's DNS records on <a href="https://dns.stackryze.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-semibold">dns.stackryze.com</a>, 
+                        you need to verify ownership. Add the zone on the DNS platform, copy the verification code it gives you, and paste it here.
+                    </p>
+
+                    <div className="flex flex-col sm:flex-row gap-3">
+                        {domain.dnsVerificationCode ? (
+                            <div className="flex-1">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <CheckCircle className="w-4 h-4 text-green-600" />
+                                    <span className="text-sm font-bold text-green-800">Verification code is set</span>
+                                </div>
+                                <p className="text-xs text-[#4A4A4A]">
+                                    Now go to <strong>dns.stackryze.com</strong> and click "Verify Ownership" to complete the verification.
+                                </p>
+                            </div>
+                        ) : (
+                            <div className="flex-1">
+                                <p className="text-sm text-amber-800 font-medium">
+                                    No verification code set yet. Add your zone on dns.stackryze.com first, then paste the code here.
+                                </p>
+                            </div>
+                        )}
+                        <Button
+                            onClick={() => setDnsVerifyOpen(true)}
+                            disabled={domain.status === 'Pending Deletion'}
+                            className="bg-[#F59E0B] text-black hover:bg-[#D97706] font-bold flex-shrink-0"
+                        >
+                            <KeyRound className="w-4 h-4 mr-2" />
+                            {domain.dnsVerificationCode ? 'Update Code' : 'Add Code'}
+                        </Button>
+                    </div>
+                </div>
+            </div>
+
+            {/* DNS Verification Dialog */}
+            <AlertDialog open={dnsVerifyOpen} onOpenChange={setDnsVerifyOpen}>
+                <AlertDialogContent className="bg-white border-2 border-[#E5E3DF]">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle className="flex items-center gap-2">
+                            <KeyRound className="w-5 h-5 text-[#F59E0B]" />
+                            DNS Verification Code
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>
+                            Paste the verification code from <strong>dns.stackryze.com</strong> for <strong>{domain.name}.{domain.domain || 'indevs.in'}</strong>.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <div className="py-4 space-y-4">
+                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-xs text-blue-800 space-y-1">
+                            <p><strong>1.</strong> Go to <a href="https://dns.stackryze.com" target="_blank" rel="noopener noreferrer" className="underline">dns.stackryze.com</a></p>
+                            <p><strong>2.</strong> Add zone <strong>{domain.name}.{domain.domain || 'indevs.in'}</strong></p>
+                            <p><strong>3.</strong> Copy the verification code it shows you</p>
+                            <p><strong>4.</strong> Paste it below and click Save</p>
+                        </div>
+                        <div className="space-y-2">
+                            <Label className="text-xs uppercase font-bold text-[#888]">Verification Code</Label>
+                            <Input
+                                value={dnsVerifyCode}
+                                onChange={(e) => setDnsVerifyCode(e.target.value)}
+                                placeholder="sryze-verify-..."
+                                className="font-mono text-sm"
+                            />
+                        </div>
+                    </div>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel className="font-bold">Cancel</AlertDialogCancel>
+                        <Button
+                            onClick={(e) => {
+                                e.preventDefault();
+                                handleSetDnsVerificationCode();
+                            }}
+                            disabled={isSettingCode || !dnsVerifyCode.trim()}
+                            className="bg-[#F59E0B] text-black hover:bg-[#D97706] font-bold"
+                        >
+                            {isSettingCode ? 'Saving...' : 'Save Code'}
+                        </Button>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
 
             {/* Danger Zone - Only show if not already pending deletion */}
             {
