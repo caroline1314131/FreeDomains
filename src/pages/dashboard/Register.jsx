@@ -287,7 +287,7 @@ export default function Register() {
                     <p className="text-xs text-red-800 mt-2">
                         {!user?.githubVerified
                             ? <>
-                                ⭐ <a href={`${API_BASE}/github/kyc/start`} className="underline font-bold hover:text-red-900">Star our repo</a> to unlock 1 more domain — it's free & instant!
+                                ⭐ <a href="https://github.com/stackryze/FreeDomains" target="_blank" rel="noopener noreferrer" className="underline font-bold hover:text-red-900">Star our repo</a>, then scroll down to verify — unlock 1 more domain instantly!
                               </>
                             : <>You've reached your registration limit. Please{' '}
                                 <a href="mailto:support@stackryze.com" className="underline font-bold hover:text-red-900">contact support</a>{' '}
@@ -311,7 +311,7 @@ export default function Register() {
                             Registration disabled. You've reached your limit of {domainLimit} domain{domainLimit === 1 ? '' : 's'}.
                             {!user?.githubVerified && (
                                 <span className="block mt-1 text-xs">
-                                    ⭐ <a href={`${API_BASE}/github/kyc/start`} className="underline font-bold hover:text-red-900">Star our repo</a> to unlock 1 more domain instantly!
+                                    ⭐ <a href="https://github.com/stackryze/FreeDomains" target="_blank" rel="noopener noreferrer" className="underline font-bold hover:text-red-900">Star our repo</a>, then scroll down and click "I've starred it — Verify" to unlock 1 more domain!
                                 </span>
                             )}
                         </AlertDescription>
