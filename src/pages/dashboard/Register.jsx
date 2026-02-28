@@ -420,29 +420,29 @@ export default function Register() {
                                             ⭐ Starring helps us get discovered, reach more developers, and keeps these domains <span className="font-semibold text-[#1A1A1A]">free for everyone</span>.
                                         </p>
                                         <ol className="text-[#6B6B6B] text-xs space-y-1 mb-5 ml-1">
-                                            <li>1. Click below to authorize with GitHub</li>
-                                            <li>2. We check if you've starred <span className="font-mono font-semibold text-[#1A1A1A]">stackryze/FreeDomains</span></li>
-                                            <li>3. If starred, you're instantly verified — no admin wait!</li>
+                                            <li>1. Star our GitHub repo (button below)</li>
+                                            <li>2. Click "I've starred it — Verify" to confirm</li>
+                                            <li>3. You're instantly unlocked — no admin wait!</li>
                                         </ol>
-                                        <a
-                                            href={`${API_BASE}/github/kyc/start?domain=${encodeURIComponent(domain)}&root=${encodeURIComponent(rootDomain)}`}
-                                            className="inline-flex items-center gap-2 bg-[#1A1A1A] text-white px-5 py-2.5 rounded-lg font-bold text-sm hover:bg-[#333] transition-all shadow-[3px_3px_0px_0px_#FFD23F] hover:shadow-none hover:translate-x-[1px] hover:translate-y-[1px]"
-                                        >
-                                            <Github className="w-4 h-4" />
-                                            Verify with GitHub
-                                        </a>
-                                        <p className="text-[#6B6B6B] text-xs mt-3">
-                                            Haven't starred yet?{' '}
+                                        <div className="flex flex-col sm:flex-row gap-3">
+                                            {/* Step 1: Star */}
                                             <a
                                                 href="https://github.com/stackryze/FreeDomains"
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="text-[#FF6B35] hover:text-[#e55a25] underline font-semibold"
+                                                className="inline-flex items-center justify-center gap-2 bg-[#FFD23F] text-[#1A1A1A] px-5 py-2.5 rounded-lg font-bold text-sm hover:bg-[#FFB800] transition-all shadow-[3px_3px_0px_0px_#1A1A1A] hover:shadow-none hover:translate-x-[1px] hover:translate-y-[1px]"
                                             >
-                                                Star the repo first ↗
+                                                ⭐ Star the Repo ↗
                                             </a>
-                                            , then come back and click Verify.
-                                        </p>
+                                            {/* Step 2: Verify */}
+                                            <a
+                                                href={`${API_BASE}/github/kyc/start?domain=${encodeURIComponent(domain)}&root=${encodeURIComponent(rootDomain)}`}
+                                                className="inline-flex items-center justify-center gap-2 bg-[#1A1A1A] text-white px-5 py-2.5 rounded-lg font-bold text-sm hover:bg-[#333] transition-all border-2 border-[#1A1A1A]"
+                                            >
+                                                <Github className="w-4 h-4" />
+                                                I've starred it — Verify
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
