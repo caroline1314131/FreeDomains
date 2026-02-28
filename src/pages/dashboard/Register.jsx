@@ -392,43 +392,43 @@ export default function Register() {
 
                         const isSryze = rootDomain === 'sryze.cc';
                         return (
-                            <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl p-6 border border-gray-700 shadow-lg">
+                            <div className="bg-[#FFF8F0] border-2 border-[#E5E3DF] rounded-xl p-6">
                                 <div className="flex items-start gap-4">
-                                    <div className="w-10 h-10 rounded-full bg-yellow-400/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <div className="w-10 h-10 rounded-full bg-[#FFD23F]/20 border-2 border-[#FFD23F] flex items-center justify-center flex-shrink-0 mt-0.5">
                                         <span className="text-xl">⭐</span>
                                     </div>
                                     <div className="flex-1">
-                                        <h3 className="text-white font-bold text-lg mb-1">
-                                            {isSryze ? 'GitHub Star Required for sryze.cc' : 'Unlock More Domains'}
+                                        <h3 className="text-[#1A1A1A] font-extrabold text-lg mb-1">
+                                            {isSryze ? 'Star Required for sryze.cc Access' : 'Unlock More Domains'}
                                         </h3>
-                                        <p className="text-gray-300 text-sm mb-2">
+                                        <p className="text-[#4A4A4A] text-sm mb-1">
                                             {isSryze
-                                                ? <>To get a free <span className="font-mono text-yellow-400">sryze.cc</span> domain, star our repo on GitHub.</>
-                                                : <>You've used your 1 free domain. Star our repo to unlock <span className="text-yellow-400 font-bold">5 indevs.in domains</span> + access to <span className="font-mono text-yellow-400">sryze.cc</span>!</>
+                                                ? <>Star our repo to get a free <span className="font-mono font-bold text-[#E63946]">sryze.cc</span> domain.</>
+                                                : <>You've used your 1 free domain. Star our repo to unlock <span className="font-bold text-[#E63946]">5 indevs.in domains</span> + <span className="font-mono font-bold text-[#E63946]">sryze.cc</span> access!</>
                                             }
                                         </p>
-                                        <p className="text-gray-500 text-xs mb-4">
-                                            ⭐ Starring helps our project get discovered on GitHub, reach more developers, and supports us in keeping these domains <span className="text-gray-300">free for everyone</span>.
+                                        <p className="text-[#6B6B6B] text-xs mb-4">
+                                            ⭐ Starring helps us get discovered, reach more developers, and keeps these domains <span className="font-semibold text-[#1A1A1A]">free for everyone</span>.
                                         </p>
-                                        <ol className="text-gray-400 text-xs space-y-1 mb-5 ml-1">
-                                            <li>1. Click the button below to authorize with GitHub</li>
-                                            <li>2. We check if you've starred <span className="font-mono text-white">stackryze/FreeDomains</span></li>
+                                        <ol className="text-[#6B6B6B] text-xs space-y-1 mb-5 ml-1">
+                                            <li>1. Click below to authorize with GitHub</li>
+                                            <li>2. We check if you've starred <span className="font-mono font-semibold text-[#1A1A1A]">stackryze/FreeDomains</span></li>
                                             <li>3. If starred, you're instantly verified — no admin wait!</li>
                                         </ol>
                                         <a
                                             href={`${API_BASE}/github/kyc/start?domain=${encodeURIComponent(domain)}&root=${encodeURIComponent(rootDomain)}`}
-                                            className="inline-flex items-center gap-2 bg-white text-gray-900 px-5 py-2.5 rounded-lg font-bold text-sm hover:bg-gray-100 transition-all shadow-md"
+                                            className="inline-flex items-center gap-2 bg-[#1A1A1A] text-white px-5 py-2.5 rounded-lg font-bold text-sm hover:bg-[#333] transition-all shadow-[3px_3px_0px_0px_#FFD23F] hover:shadow-none hover:translate-x-[1px] hover:translate-y-[1px]"
                                         >
                                             <Github className="w-4 h-4" />
                                             Verify with GitHub
                                         </a>
-                                        <p className="text-gray-500 text-xs mt-3">
+                                        <p className="text-[#6B6B6B] text-xs mt-3">
                                             Haven't starred yet?{' '}
                                             <a
                                                 href="https://github.com/stackryze/FreeDomains"
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="text-yellow-400 hover:text-yellow-300 underline"
+                                                className="text-[#FF6B35] hover:text-[#e55a25] underline font-semibold"
                                             >
                                                 Star the repo first ↗
                                             </a>
