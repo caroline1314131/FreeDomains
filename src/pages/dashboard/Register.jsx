@@ -289,8 +289,9 @@ export default function Register() {
                             ? <>
                                 ⭐ <a href="https://github.com/stackryze/FreeDomains" target="_blank" rel="noopener noreferrer" className="underline font-bold hover:text-red-900">Star our repo</a>, then scroll down to verify — unlock 1 more domain instantly!
                               </>
-                            : <>You've reached your registration limit. Please{' '}
-                                <a href="mailto:support@stackryze.com" className="underline font-bold hover:text-red-900">contact support</a>{' '}
+                            : <>Need more domains?{' '}
+                                <a href="https://discord.gg/wr7s97cfM7" target="_blank" rel="noopener noreferrer" className="underline font-bold hover:text-red-900">Join our Discord</a>{' '}
+                                or <a href="mailto:support@stackryze.com" className="underline font-bold hover:text-red-900">email support</a>{' '}
                                 to request a limit increase.
                               </>
                         }
@@ -309,9 +310,16 @@ export default function Register() {
                         <AlertCircle className="h-4 w-4 text-red-600" />
                         <AlertDescription className="text-red-800 font-medium">
                             Registration disabled. You've reached your limit of {domainLimit} domain{domainLimit === 1 ? '' : 's'}.
-                            {!user?.githubVerified && (
+                            {!user?.githubVerified ? (
                                 <span className="block mt-1 text-xs">
                                     ⭐ <a href="https://github.com/stackryze/FreeDomains" target="_blank" rel="noopener noreferrer" className="underline font-bold hover:text-red-900">Star our repo</a>, then scroll down and click "I've starred it — Verify" to unlock 1 more domain!
+                                </span>
+                            ) : (
+                                <span className="block mt-1 text-xs">
+                                    Need more domains?{' '}
+                                    <a href="https://discord.gg/wr7s97cfM7" target="_blank" rel="noopener noreferrer" className="underline font-bold hover:text-red-900">Join our Discord</a>{' '}
+                                    or <a href="mailto:support@stackryze.com" className="underline font-bold hover:text-red-900">email support</a>{' '}
+                                    to request a limit increase.
                                 </span>
                             )}
                         </AlertDescription>
