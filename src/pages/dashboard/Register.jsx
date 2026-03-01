@@ -311,22 +311,8 @@ export default function Register() {
                         <AlertDescription className="text-red-800 font-medium">
                             Registration disabled. You've reached your limit of {domainLimit} domain{domainLimit === 1 ? '' : 's'}.
                             {!user?.githubVerified ? (
-                                <span className="block mt-2">
-                                    <span className="text-xs block mb-1.5">⭐ Star our repo first, then verify to unlock 1 more domain:</span>
-                                    <span className="flex gap-2 flex-wrap">
-                                        <a
-                                            href="https://github.com/stackryze/FreeDomains"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-1 bg-[#FFD23F] text-[#1A1A1A] px-3 py-1.5 rounded-md font-bold text-xs hover:bg-[#FFB800] transition-all"
-                                        >⭐ Star Repo ↗</a>
-                                        <a
-                                            href={`${API_BASE}/github/kyc/start?domain=${encodeURIComponent(domain)}&root=${encodeURIComponent(rootDomain)}`}
-                                            className="inline-flex items-center gap-1.5 bg-[#1A1A1A] text-white px-3 py-1.5 rounded-md font-bold text-xs hover:bg-[#333] transition-all"
-                                        >
-                                            <Github className="w-3 h-3" /> I've starred it — Verify
-                                        </a>
-                                    </span>
+                                <span className="block mt-1 text-xs">
+                                    ⭐ Star our repo &amp; verify below to unlock 1 more domain instantly!
                                 </span>
                             ) : (
                                 <span className="block mt-1 text-xs">
