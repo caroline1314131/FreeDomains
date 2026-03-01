@@ -64,6 +64,9 @@ export function Header() {
             >
               GitHub
             </a>
+            <a href="/donate" className="text-rose-500 hover:text-rose-700 transition-colors duration-150 font-bold text-sm lg:text-base flex items-center gap-1">
+              ❤️ Donate
+            </a>
           </div>
 
           {/* CTA Button */}
