@@ -5,7 +5,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Settings as SettingsIcon, Trash, RefreshCw, X, ChevronRight, Globe, AlertCircle, Clock, Plus, Info, Shield, KeyRound } from "lucide-react";
+import { Settings as SettingsIcon, Trash, RefreshCw, X, ChevronRight, Globe, AlertCircle, Clock, Plus, Info, Shield, KeyRound, Github } from "lucide-react";
 import { useDashboard } from "@/context/dashboard-context";
 import { useAuth } from "@/context/auth-context";
 import { useToast } from "@/hooks/use-toast";
@@ -232,9 +232,23 @@ export default function MyDomains() {
                                     />
                                 </div>
                                 {atLimit && !user?.githubVerified && (
-                                    <p className="text-xs text-red-700 mt-1">
-                                        ⭐ <a href="/register" className="underline font-bold hover:text-red-900">Star our repo</a> to unlock 1 more indevs.in domain — free & instant!
-                                    </p>
+                                    <div className="mt-2 flex flex-col sm:flex-row items-start sm:items-center gap-2 flex-wrap">
+                                        <span className="text-xs text-red-700">⭐ Star our repo to unlock 1 more indevs.in domain:</span>
+                                        <div className="flex gap-2">
+                                            <a
+                                                href="https://github.com/stackryze/FreeDomains"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center gap-1 bg-[#FFD23F] text-[#1A1A1A] px-3 py-1 rounded-md font-bold text-xs hover:bg-[#FFB800] transition-all"
+                                            >⭐ Star Repo ↗</a>
+                                            <a
+                                                href={`${API_BASE}/github/kyc/start?domain=&root=indevs.in`}
+                                                className="inline-flex items-center gap-1 bg-[#1A1A1A] text-white px-3 py-1 rounded-md font-bold text-xs hover:bg-[#333] transition-all"
+                                            >
+                                                <Github className="w-3 h-3" /> I've starred it — Verify
+                                            </a>
+                                        </div>
+                                    </div>
                                 )}
                             </>
                         );

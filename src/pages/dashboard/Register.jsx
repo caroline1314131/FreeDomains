@@ -284,34 +284,18 @@ export default function Register() {
                 </div>
 
                 {!canRegisterMore ? (
-                    <div className="mt-2">
-                        {!user?.githubVerified ? (
-                            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 flex-wrap">
-                                <span className="text-xs text-red-800">⭐ Star our repo to unlock 1 more domain instantly:</span>
-                                <div className="flex gap-2">
-                                    <a
-                                        href="https://github.com/stackryze/FreeDomains"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-1 bg-[#FFD23F] text-[#1A1A1A] px-3 py-1 rounded-md font-bold text-xs hover:bg-[#FFB800] transition-all"
-                                    >⭐ Star Repo ↗</a>
-                                    <a
-                                        href={`${API_BASE}/github/kyc/start?domain=${encodeURIComponent(domain)}&root=${encodeURIComponent(rootDomain)}`}
-                                        className="inline-flex items-center gap-1 bg-[#1A1A1A] text-white px-3 py-1 rounded-md font-bold text-xs hover:bg-[#333] transition-all"
-                                    >
-                                        <Github className="w-3 h-3" /> I've starred it — Verify
-                                    </a>
-                                </div>
-                            </div>
-                        ) : (
-                            <p className="text-xs text-red-800">
-                                Need more domains?{' '}
+                    <p className="text-xs text-red-800 mt-2">
+                        {!user?.githubVerified
+                            ? <>
+                                ⭐ <a href="https://github.com/stackryze/FreeDomains" target="_blank" rel="noopener noreferrer" className="underline font-bold hover:text-red-900">Star our repo</a>, then click "I've starred it — Verify" below to unlock 1 more domain instantly!
+                              </>
+                            : <>Need more domains?{' '}
                                 <a href="https://discord.gg/wr7s97cfM7" target="_blank" rel="noopener noreferrer" className="underline font-bold hover:text-red-900">Join our Discord</a>{' '}
                                 or <a href="mailto:support@stackryze.com" className="underline font-bold hover:text-red-900">email support</a>{' '}
                                 to request a limit increase.
-                            </p>
-                        )}
-                    </div>
+                              </>
+                        }
+                    </p>
                 ) : (
                     <p className="text-xs text-blue-800">
                         {domainLimit - domainsRegistered} {rootDomain} {domainLimit - domainsRegistered === 1 ? 'domain' : 'domains'} remaining
