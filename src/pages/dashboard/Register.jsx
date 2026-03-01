@@ -413,12 +413,12 @@ export default function Register() {
                     </div>
 
                     {/* KYC Gate — shown for:
-                        - sryze.cc: always if not verified
-                        - indevs.in: when limit of 1 is reached and not yet verified */}
+                        - sryze.cc: always if not verified (immediately, no search needed)
+                        - indevs.in: when limit reached and not yet verified */}
                     {(() => {
                         const needsKyc =
-                            (isAvailable && rootDomain === 'sryze.cc' && !user?.githubVerified) ||
-                            (isAvailable && rootDomain === 'indevs.in' && !canRegisterMore && !user?.githubVerified);
+                            (rootDomain === 'sryze.cc' && !user?.githubVerified) ||
+                            (rootDomain === 'indevs.in' && !canRegisterMore && !user?.githubVerified);
                         if (!needsKyc) return null;
 
                         const isSryze = rootDomain === 'sryze.cc';
