@@ -36,7 +36,7 @@ Our goal is simple: remove cost and complexity from getting online.
 
 Stackryze Domains Namespaces are backed by globally distributed name servers for reliability and low latency:
 
-- **ns1.stackryze.com** — Primary name server (Germany)  
+- **ns1.stackryze.com** — Primary name server (New York)  
 - **ns2.stackryze.com** — Secondary name server (Hyderabad, India)
 
 ---
