@@ -57,7 +57,7 @@ const faqs = [
     },
     {
         q: "How many domains can I register?",
-        a: "Unverified users get up to 2 domains. After GitHub verification, you get up to 5. Starring our GitHub repo gives you +3 bonus slots."
+        a: "Users get 1 free .indevs.in domain. After GitHub star unlocks +1 .indevs.in and +1 .sryze.cc domain access. Further limits can be increased by contacting support via Discord or email and stating your reason."
     },
     {
         q: "Do domains expire?",
