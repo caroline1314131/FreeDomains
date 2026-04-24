@@ -257,7 +257,7 @@ export default function MyDomains() {
                 </div>
 
                 {/* Sryze.cc Usage */}
-                <div>
+                <div className="mb-4">
                     <div className="flex items-center justify-between mb-1">
                         <span className="text-xs font-semibold text-[#374151]">sryze.cc Domains</span>
                         <span className="text-xs text-[#6B7280]">
@@ -276,6 +276,28 @@ export default function MyDomains() {
                         ></div>
                     </div>
                 </div>
+
+                {/* RyzeDNS.org Usage */}
+                <div>
+                    <div className="flex items-center justify-between mb-1">
+                        <span className="text-xs font-semibold text-[#374151]">ryzedns.org Domains</span>
+                        <span className="text-xs text-[#6B7280]">
+                            {subdomains?.filter(s => s.domain === 'ryzedns.org').length || 0} / {user?.ryzeDnsDomainsLimit || 1}
+                        </span>
+                    </div>
+                    <div className="w-full bg-[#E5E7EB] rounded-full h-2">
+                        <div
+                            className={`h-2 rounded-full transition-all ${((subdomains?.filter(s => s.domain === 'ryzedns.org').length || 0) / (user?.ryzeDnsDomainsLimit || 1) * 100) >= 100
+                                    ? 'bg-red-600'
+                                    : ((subdomains?.filter(s => s.domain === 'ryzedns.org').length || 0) / (user?.ryzeDnsDomainsLimit || 1) * 100) >= 80
+                                        ? 'bg-amber-500'
+                                        : 'bg-teal-600'
+                                }`}
+                            style={{ width: `${Math.min(((subdomains?.filter(s => s.domain === 'ryzedns.org').length || 0) / (user?.ryzeDnsDomainsLimit || 1) * 100), 100)}%` }}
+                        ></div>
+                    </div>
+                </div>
+
             </div>
 
             <div className="bg-white border-[1px] border-[#D1D5DB] rounded-xl overflow-hidden">

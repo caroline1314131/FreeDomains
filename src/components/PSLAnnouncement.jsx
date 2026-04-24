@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { X, AlertCircle, CheckCircle, Clock, Info } from "lucide-react";
+import { X, AlertCircle, CheckCircle, Clock, Info, Star, Github, Heart } from "lucide-react";
 
 export function PSLAnnouncement() {
     const [isVisible, setIsVisible] = useState(true);
@@ -10,27 +10,28 @@ export function PSLAnnouncement() {
     return (
         <>
             {/* Announcement Banner */}
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b-2 border-blue-200 w-full relative z-40">
-                <div className="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8">
+            <div className="bg-gradient-to-r from-[#FFF8F0] to-amber-50 border-b-2 border-[#FFD23F] w-full relative z-40">
+                <div className="max-w-7xl mx-auto px-4 py-2.5 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between flex-wrap gap-2">
                         <div className="flex items-center gap-3 flex-1 min-w-0">
-                            <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0" />
-                            <p className="text-sm font-medium text-blue-900">
-                                <span className="font-bold">New:</span> PSL Update – Temporary SSL issues with some hosting providers.
+                            <span className="text-base flex-shrink-0">⭐</span>
+                            <p className="text-sm font-medium text-[#1A1A1A]">
+                                <span className="font-bold">New:</span> ryzedns.org domain extension launched!{" "}
+                                <span className="text-[#4A4A4A]">Star our GitHub repo to unlock access.</span>
                                 <button
                                     onClick={() => setShowModal(true)}
-                                    className="ml-2 text-blue-700 hover:text-blue-900 underline font-bold"
+                                    className="ml-2 text-[#FF6B35] hover:text-[#e05520] underline font-bold"
                                 >
-                                    Learn more
+                                    Learn more →
                                 </button>
                             </p>
                         </div>
                         <button
                             onClick={() => setIsVisible(false)}
-                            className="flex-shrink-0 p-1 hover:bg-blue-100 rounded transition-colors"
+                            className="flex-shrink-0 p-1 hover:bg-amber-100 rounded transition-colors"
                             aria-label="Dismiss announcement"
                         >
-                            <X className="w-4 h-4 text-blue-600" />
+                            <X className="w-4 h-4 text-[#6B7280]" />
                         </button>
                     </div>
                 </div>
@@ -39,21 +40,21 @@ export function PSLAnnouncement() {
             {/* Modal */}
             {showModal && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-                    <div className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border-2 border-[#E5E3DF]">
+                    <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border-2 border-[#E5E3DF]">
                         {/* Header */}
-                        <div className="sticky top-0 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 border-b-2 border-blue-200 flex items-start justify-between">
+                        <div className="sticky top-0 bg-[#FFF8F0] p-6 border-b-2 border-[#FFD23F] flex items-start justify-between">
                             <div className="flex items-start gap-3">
-                                <div className="p-2 bg-blue-100 rounded-lg">
-                                    <Info className="w-6 h-6 text-blue-600" />
+                                <div className="p-2 bg-[#FFD23F]/30 rounded-lg border border-[#FFD23F]">
+                                    <Heart className="w-6 h-6 text-[#FF6B35] fill-[#FF6B35]" />
                                 </div>
                                 <div>
-                                    <h2 className="text-2xl font-bold text-[#1A1A1A]">PSL Update Notice</h2>
-                                    <p className="text-sm text-blue-800 mt-1">Important information about recent changes</p>
+                                    <h2 className="text-2xl font-bold text-[#1A1A1A]">Support Stackryze Servers</h2>
+                                    <p className="text-sm text-[#6B7280] mt-1">Help keep the platform running for everyone</p>
                                 </div>
                             </div>
                             <button
                                 onClick={() => setShowModal(false)}
-                                className="p-2 hover:bg-blue-100 rounded-lg transition-colors"
+                                className="p-2 hover:bg-amber-100 rounded-lg transition-colors"
                                 aria-label="Close"
                             >
                                 <X className="w-5 h-5 text-[#4A4A4A]" />
@@ -61,113 +62,123 @@ export function PSLAnnouncement() {
                         </div>
 
                         {/* Content */}
-                        <div className="p-6 space-y-6 text-[#1A1A1A]">
+                        <div className="p-6 space-y-5 text-[#1A1A1A]">
+
                             {/* Intro */}
-                            <p className="text-base leading-relaxed">
-                                Hi everyone 👋 We have an important update about our domain and some temporary issues you might encounter when setting up your subdomain.
+                            <p className="text-base leading-relaxed text-[#4A4A4A]">
+                                Stackryze is one of the fastest-growing platforms offering <strong>free domains and DNS</strong>, with fast and active support from our team.
                             </p>
 
-                            {/* Good News */}
+                            {/* Cost info */}
+                            <div className="bg-amber-50 border-l-4 border-[#FFD23F] p-4 rounded-r-lg">
+                                <p className="text-sm text-amber-900 leading-relaxed">
+                                    It costs <strong>~$20 per month</strong> to keep the servers running, plus additional costs for domain renewals. I personally cover these expenses and work on Stackryze completely for free as a student.
+                                </p>
+                            </div>
+
+                            {/* New domain extension */}
                             <div className="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
                                 <div className="flex items-start gap-3">
                                     <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
                                     <div>
-                                        <h3 className="font-bold text-green-900 mb-2">✅ Great News: PSL Approval!</h3>
-                                        <p className="text-sm text-green-800 mb-3">
-                                            Our domain was recently <strong>approved and added to Cloudflare's Public Suffix List (PSL)</strong>. You can now onboard and use your subdomains!
-                                        </p>
-                                        <p className="text-sm text-green-800 mb-2">This brings major security benefits:</p>
-                                        <ul className="text-sm text-green-800 space-y-1 ml-4 list-disc">
-                                            <li>Each subdomain gets its own isolated security context</li>
-                                            <li>Individual SSL certificates for better security</li>
-                                            <li>Protection from cookie sharing across subdomains</li>
-                                            <li>Industry-standard security like major platforms</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Temporary Issues */}
-                            <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
-                                <div className="flex items-start gap-3">
-                                    <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-                                    <div>
-                                        <h3 className="font-bold text-amber-900 mb-2">⚠️ Temporary Setup Issues</h3>
-                                        <p className="text-sm text-amber-800 mb-3">
-                                            <strong>The PSL approval is brand new</strong> – not all platforms have synced the update yet. Some users may experience temporary issues:
-                                        </p>
-                                        <ul className="text-sm text-amber-800 space-y-2 ml-4 list-disc">
-                                            <li>
-                                                <strong>Hosting providers</strong> (Vercel, Netlify, etc.) may show:
-                                                <code className="bg-amber-100 px-2 py-0.5 rounded text-xs block mt-1">"This domain is already registered in another account"</code>
-                                            </li>
-                                            <li><strong>SSL certificate failures</strong> during initial setup or deployment</li>
-                                            <li><strong>Proxy/ACME validation errors</strong> when generating certificates</li>
-                                        </ul>
-                                        <p className="text-sm text-amber-900 font-bold mt-3">This is temporary and will resolve automatically as platforms sync!</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Technical Context */}
-                            <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
-                                <div className="flex items-start gap-3">
-                                    <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                                    <div>
-                                        <h3 className="font-bold text-blue-900 mb-2">🔐 Why This Happens (Technical Details)</h3>
-                                        <p className="text-sm text-blue-800 mb-2">Even if you use Cloudflare, SSL issues can occur because:</p>
-                                        <ul className="text-sm text-blue-800 space-y-2 ml-4 list-disc">
-                                            <li><strong>Certificate Authorities (Let's Encrypt, Google ACME)</strong> haven't synced the PSL yet</li>
-                                            <li>Cloudflare uses different CAs depending on availability – some may still treat our domain as a single shared domain</li>
-                                            <li>Let's Encrypt has <strong>rate limits</strong> – without PSL sync, they count all subdomains as one domain (causing failures for multiple users)</li>
-                                            <li>Once synced, each subdomain is treated independently (no more rate limit conflicts)</li>
-                                        </ul>
-                                        <p className="text-sm text-blue-900 font-bold mt-3 bg-blue-100 p-2 rounded">
-                                            ✅ This is NOT your fault or a configuration error! We applied to PSL specifically to provide secure, isolated domains for everyone.
+                                        <h3 className="font-bold text-green-900 mb-1">🎉 New Domain Extension: ryzedns.org</h3>
+                                        <p className="text-sm text-green-800">
+                                            We've launched a new domain extension <strong className="font-mono">.ryzedns.org</strong> alongside the existing{" "}
+                                            <strong className="font-mono">.indevs.in</strong> and{" "}
+                                            <strong className="font-mono">.sryze.cc</strong>.
+                                            If we receive enough community support, we plan to introduce even more extensions and expand the ecosystem.
                                         </p>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* What Happens Next */}
-                            <div className="border-l-4 border-indigo-500 bg-indigo-50 p-4 rounded-r-lg">
-                                <div className="flex items-start gap-3">
-                                    <Clock className="w-5 h-5 text-indigo-600 flex-shrink-0 mt-0.5" />
-                                    <div>
-                                        <h3 className="font-bold text-indigo-900 mb-2">⏳ Timeline & Next Steps</h3>
-                                        <ul className="text-sm text-indigo-800 space-y-1 ml-4 list-disc">
-                                            <li><strong>Already done:</strong> PSL approval ✅</li>
-                                            <li><strong>In progress:</strong> Vercel, Netlify, Let's Encrypt, and other platforms are syncing (automatic)</li>
-                                            <li><strong>Your action:</strong> None! Just wait if you encounter errors</li>
-                                            <li><strong>Existing subdomains:</strong> Will continue working normally</li>
-                                        </ul>
-                                        <p className="text-sm text-indigo-900 font-medium mt-2">Expected resolution: 1-2 weeks for major platforms</p>
+                            {/* Quote */}
+                            <blockquote className="border-l-4 border-[#FF6B35] pl-4 py-1 italic text-[#4A4A4A] text-sm">
+                                "Let's not make money the barrier to having a better name on the internet."
+                            </blockquote>
+
+                            {/* Star to unlock */}
+                            <div className="bg-[#FFF8F0] border-2 border-[#FFD23F] rounded-xl p-5">
+                                <div className="flex items-start gap-4">
+                                    <div className="w-10 h-10 rounded-full bg-[#FFD23F]/20 border-2 border-[#FFD23F] flex items-center justify-center flex-shrink-0">
+                                        <span className="text-xl">⭐</span>
+                                    </div>
+                                    <div className="flex-1">
+                                        <h3 className="text-[#1A1A1A] font-extrabold text-base mb-1">
+                                            Star Our Repo to Unlock More Domains
+                                        </h3>
+                                        <p className="text-sm text-[#4A4A4A] mb-1">
+                                            Starring helps us get discovered, reach more developers, and keeps these domains{" "}
+                                            <strong>free for everyone</strong>.
+                                        </p>
+                                        <div className="bg-white border border-[#E5E7EB] rounded-lg p-3 mb-4 mt-3">
+                                            <p className="text-xs font-bold text-[#1A1A1A] mb-2">⭐ Starring unlocks:</p>
+                                            <ul className="text-xs text-[#4A4A4A] space-y-1">
+                                                <li className="flex items-center gap-2">
+                                                    <CheckCircle className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
+                                                    Access to <strong className="font-mono">.sryze.cc</strong> domain (1 free)
+                                                </li>
+                                                <li className="flex items-center gap-2">
+                                                    <CheckCircle className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
+                                                    Access to <strong className="font-mono">.ryzedns.org</strong> domain (1 free)
+                                                </li>
+                                                <li className="flex items-center gap-2">
+                                                    <CheckCircle className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
+                                                    1 extra <strong className="font-mono">.indevs.in</strong> domain slot
+                                                </li>
+                                                <li className="flex items-center gap-2">
+                                                    <CheckCircle className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
+                                                    Higher domain limits overall
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <ol className="text-xs text-[#6B7280] space-y-1 mb-4 ml-1">
+                                            <li>1. Star our GitHub repo (button below)</li>
+                                            <li>2. Click "I've starred it — Verify" on the Register page</li>
+                                            <li>3. You're instantly unlocked — no admin wait!</li>
+                                        </ol>
+                                        <div className="flex flex-col sm:flex-row gap-3">
+                                            <a
+                                                href="https://github.com/stackryze/FreeDomains"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center justify-center gap-2 bg-[#FFD23F] text-[#1A1A1A] px-5 py-2.5 rounded-lg font-bold text-sm hover:bg-[#FFB800] transition-all shadow-[3px_3px_0px_0px_#1A1A1A] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]"
+                                            >
+                                                <Star className="w-4 h-4" />
+                                                ⭐ Star the Repo ↗
+                                            </a>
+                                            <a
+                                                href="/register"
+                                                onClick={() => setShowModal(false)}
+                                                className="inline-flex items-center justify-center gap-2 bg-[#1A1A1A] text-white px-5 py-2.5 rounded-lg font-bold text-sm hover:bg-[#333] transition-all border-2 border-[#1A1A1A]"
+                                            >
+                                                <Github className="w-4 h-4" />
+                                                Verify & Register Domain
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* What We Ask */}
-                            <div>
-                                <h3 className="font-bold text-[#1A1A1A] mb-3">🙏 What We Need From You</h3>
-                                <p className="text-sm text-[#4A4A4A] mb-2">If you encounter SSL or deployment errors:</p>
-                                <ul className="text-sm text-[#4A4A4A] space-y-2 ml-4 list-disc">
-                                    <li><strong>Be patient</strong> – wait a few days and retry</li>
-                                    <li><strong>Don't worry</strong> – it's not your account, configuration, or our fault</li>
-                                    <li><strong>Retry later</strong> – the issue resolves itself as platforms sync</li>
-                                    <li><strong>Report persistent issues</strong> – especially after 2 weeks (screenshots help!)</li>
-                                </ul>
-                            </div>
-
-                            {/* Footer */}
-                            <div className="bg-[#FFF8F0] border-2 border-[#E5E3DF] rounded-lg p-4 text-center">
-                                <p className="text-sm text-[#4A4A4A]">
-                                    We appreciate your understanding, this change ultimately gives everyone a more secure and future-proof setup.
+                            {/* Donate CTA */}
+                            <div className="bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-4 text-center">
+                                <p className="text-sm text-[#4A4A4A] mb-3">
+                                    If Stackryze has helped you, please consider donating. Even a small contribution makes a real difference.{" "}
+                                    <strong>Thank you for supporting Stackryze ❤️</strong>
                                 </p>
-                                <p className="text-sm text-[#1A1A1A] font-bold mt-2">
-                                    Thanks for being part of the community ❤️
-                                </p>
-                                <p className="text-xs text-[#888] mt-3">— Stackryze Team</p>
+                                <a
+                                    href="https://github.com/sponsors/sudheerbhuvana"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="inline-flex items-center justify-center gap-2 bg-[#111827] text-white font-bold text-sm px-5 py-2.5 rounded-lg hover:bg-[#1f2937] transition-colors"
+                                >
+                                    <Github className="w-4 h-4" />
+                                    Sponsor on GitHub
+                                    <Heart className="w-4 h-4 fill-[#FF6B35] text-[#FF6B35]" />
+                                </a>
                             </div>
+
+                            <p className="text-xs text-center text-[#9CA3AF]">— Stackryze Team</p>
                         </div>
 
                         {/* Close Button */}
