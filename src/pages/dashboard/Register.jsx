@@ -25,7 +25,7 @@ export default function Register() {
     const [captchaToken, setCaptchaToken] = useState(null);
     const captchaRef = useRef(null);
 
-    const availableDomains = ["indevs.in", "sryze.cc"];
+    const availableDomains = ["indevs.in", "sryze.cc", "ryzedns.org"];
 
     const { subdomains, refresh } = useDashboard();
     const { user, checkAuth } = useAuth();
@@ -51,7 +51,7 @@ export default function Register() {
             checkAuth();
             toast({
                 title: `🎉 GitHub Verified! Welcome, @${githubUser || 'you'}`,
-                description: 'Star confirmed! You can now register your sryze.cc domain.',
+                description: 'Star confirmed! You can now register your sryze.cc or ryzedns.org domain.',
                 className: 'bg-green-50 border-green-200 text-green-900'
             });
         } else if (kyc === 'not_starred') {
@@ -94,10 +94,14 @@ export default function Register() {
     // githubVerified covers BOTH old manually-approved users AND new star-KYC users.
     const domainLimit = rootDomain === 'sryze.cc'
         ? (user?.sryzeDomainsLimit || 1)
-        : (user?.githubVerified ? (user?.domainLimit || 1) : 1);
+        : rootDomain === 'ryzedns.org'
+            ? (user?.ryzeDnsDomainsLimit || 1)
+            : (user?.githubVerified ? (user?.domainLimit || 1) : 1);
     const domainsRegistered = rootDomain === 'sryze.cc'
         ? (user?.sryzeDomainsCount || 0)
-        : (user?.domainsCount || 0);
+        : rootDomain === 'ryzedns.org'
+            ? (user?.ryzeDnsDomainsCount || 0)
+            : (user?.domainsCount || 0);
     const canRegisterMore = domainsRegistered < domainLimit;
     const usagePercentage = (domainsRegistered / domainLimit) * 100;
 
@@ -401,6 +405,7 @@ export default function Register() {
                                     </p>
                                     <p className="text-xs text-green-700">
                                         {(rootDomain === 'sryze.cc' && !user?.githubVerified) ||
+                                         (rootDomain === 'ryzedns.org' && !user?.githubVerified) ||
                                          (rootDomain === 'indevs.in' && !canRegisterMore && !user?.githubVerified)
                                             ? 'Star our repo on GitHub to unlock this domain — it takes 2 seconds!'
                                             : 'This domain is yours for the taking. Accept the terms below to claim it.'
@@ -413,14 +418,16 @@ export default function Register() {
 
                     {/* KYC Gate — shown for:
                         - sryze.cc: always if not verified (immediately, no search needed)
+                        - ryzedns.org: always if not verified (immediately, no search needed)
                         - indevs.in: when limit reached and not yet verified */}
                     {(() => {
                         const needsKyc =
                             (rootDomain === 'sryze.cc' && !user?.githubVerified) ||
+                            (rootDomain === 'ryzedns.org' && !user?.githubVerified) ||
                             (rootDomain === 'indevs.in' && !canRegisterMore && !user?.githubVerified);
                         if (!needsKyc) return null;
 
-                        const isSryze = rootDomain === 'sryze.cc';
+                        const isSryzeOrRyzeDns = rootDomain === 'sryze.cc' || rootDomain === 'ryzedns.org';
                         return (
                             <div className="bg-[#FFF8F0] border-[1px] border-[#D1D5DB] rounded-xl p-6">
                                 <div className="flex items-start gap-4">
@@ -429,12 +436,12 @@ export default function Register() {
                                     </div>
                                     <div className="flex-1">
                                         <h3 className="text-[#1A1A1A] font-extrabold text-lg mb-1">
-                                            {isSryze ? 'Star Required for sryze.cc Access' : 'Unlock More Domains'}
+                                            {isSryzeOrRyzeDns ? `Star Required for ${rootDomain} Access` : 'Unlock More Domains'}
                                         </h3>
                                         <p className="text-[#4A4A4A] text-sm mb-1">
-                                            {isSryze
-                                                ? <>Star our repo to get a free <span className="font-mono font-bold text-[#E63946]">sryze.cc</span> domain.</>
-                                                : <>You've used your 1 free domain. Star our repo to unlock <span className="font-bold text-[#E63946]">1 more indevs.in domain</span> + <span className="font-mono font-bold text-[#E63946]">sryze.cc</span> access!</>
+                                            {isSryzeOrRyzeDns
+                                                ? <><span className="font-mono font-bold text-[#E63946]">⭐</span> Star our repo to get a free <span className="font-mono font-bold text-[#E63946]">{rootDomain}</span> domain.</>
+                                                : <>You've used your 1 free domain. Star our repo to unlock <span className="font-bold text-[#E63946]">1 more indevs.in domain</span> + <span className="font-mono font-bold text-[#E63946]">sryze.cc</span> & <span className="font-mono font-bold text-[#E63946]">ryzedns.org</span> access!</>
                                             }
                                         </p>
                                         <p className="text-[#6B6B6B] text-xs mb-4">
@@ -473,6 +480,7 @@ export default function Register() {
                     {/* Terms of Service — only shown if not gated by KYC */}
                     {isAvailable &&
                      !((rootDomain === 'sryze.cc' && !user?.githubVerified) ||
+                       (rootDomain === 'ryzedns.org' && !user?.githubVerified) ||
                        (rootDomain === 'indevs.in' && !canRegisterMore && !user?.githubVerified)) && (
                         <>
                             {/* Registration Period Info */}
@@ -545,6 +553,7 @@ export default function Register() {
                         disabled={
                             !isAvailable || !acceptedToS || !captchaToken || isSubmitting || !canRegisterMore ||
                             (rootDomain === 'sryze.cc' && !user?.githubVerified) ||
+                            (rootDomain === 'ryzedns.org' && !user?.githubVerified) ||
                             (rootDomain === 'indevs.in' && !canRegisterMore && !user?.githubVerified)
                         }
                         className="w-full bg-[#FFD23F] hover:bg-[#FFB800] text-[#1A1A1A] font-extrabold py-6 text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed  hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] disabled:shadow-none"
