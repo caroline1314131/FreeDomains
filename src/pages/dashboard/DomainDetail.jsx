@@ -454,14 +454,24 @@ export default function DomainDetail() {
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-3">
-                        {domain.dnsVerificationCode ? (
+                        {domain.ownershipVerified ? (
                             <div className="flex-1">
                                 <div className="flex items-center gap-2 mb-2">
                                     <CheckCircle className="w-4 h-4 text-green-600" />
-                                    <span className="text-sm font-bold text-green-800">Verification code is set</span>
+                                    <span className="text-sm font-bold text-green-800">Ownership verified ✅</span>
                                 </div>
                                 <p className="text-xs text-[#4A4A4A]">
-                                    Now go to <strong>dns.stackryze.com</strong> and click "Verify Ownership" to complete the verification.
+                                    This domain is verified on dns.stackryze.com. You can manage its DNS records there.
+                                </p>
+                            </div>
+                        ) : domain.dnsVerificationCode ? (
+                            <div className="flex-1">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <CheckCircle className="w-4 h-4 text-amber-500" />
+                                    <span className="text-sm font-bold text-amber-800">Code set — awaiting verification</span>
+                                </div>
+                                <p className="text-xs text-[#4A4A4A]">
+                                    Now go to <strong>dns.stackryze.com</strong> and click "Verify Ownership" to complete.
                                 </p>
                             </div>
                         ) : (
@@ -477,7 +487,7 @@ export default function DomainDetail() {
                             className="bg-[#F59E0B] text-black hover:bg-[#D97706] font-bold flex-shrink-0"
                         >
                             <KeyRound className="w-4 h-4 mr-2" />
-                            {domain.dnsVerificationCode ? 'Update Code' : 'Add Code'}
+                            {domain.ownershipVerified ? 'Re-verify' : domain.dnsVerificationCode ? 'Update Code' : 'Add Code'}
                         </Button>
                     </div>
                 </div>
