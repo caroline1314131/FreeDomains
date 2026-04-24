@@ -92,18 +92,23 @@ export default function Register() {
     // Calculate domain usage based on selected root domain.
     // For indevs.in: unverified users are capped at 1 free domain regardless of stored domainLimit.
     // githubVerified covers BOTH old manually-approved users AND new star-KYC users.
+    //
+    // IMPORTANT: For ryzedns.org and sryze.cc we count from the actual subdomains list
+    // (same source of truth as Domains.jsx) rather than the counter fields (ryzeDnsDomainsCount /
+    // sryzeDomainsCount) which can drift if a DNS failure rollback or timing issue occurs.
     const domainLimit = rootDomain === 'sryze.cc'
         ? (user?.sryzeDomainsLimit || 1)
         : rootDomain === 'ryzedns.org'
             ? (user?.ryzeDnsDomainsLimit || 1)
             : (user?.githubVerified ? (user?.domainLimit || 1) : 1);
     const domainsRegistered = rootDomain === 'sryze.cc'
-        ? (user?.sryzeDomainsCount || 0)
+        ? (subdomains?.filter(s => s.domain === 'sryze.cc' && !s.deletedAt).length || 0)
         : rootDomain === 'ryzedns.org'
-            ? (user?.ryzeDnsDomainsCount || 0)
+            ? (subdomains?.filter(s => s.domain === 'ryzedns.org' && !s.deletedAt).length || 0)
             : (user?.domainsCount || 0);
     const canRegisterMore = domainsRegistered < domainLimit;
     const usagePercentage = (domainsRegistered / domainLimit) * 100;
+
 
     // Auto-check availability as user types
     // Auto-check availability as user types
